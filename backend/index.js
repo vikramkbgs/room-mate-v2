@@ -8,6 +8,7 @@ const sessionRoutes = require("./routes/session");
 const registerRoutes = require("./routes/register");
 const requestRoutes = require("./routes/request");
 const roommateRoutes = require("./routes/roommate");
+const avatarRoutes = require("./routes/avatar");
 
 const createModels = require("./middleware/createModels");
 const { logger } = require("./middleware/logEvents");
@@ -16,6 +17,10 @@ const verifyJWT = require("./middleware/verifyJWT");
 const credentials = require("./middleware/credentials");
 
 const app = express();
+const PORT = 8000;
+const server = app.listen(PORT, () => {
+  console.log(`This app is listening on port ${PORT}`);
+});
 
 app.use(createModels);
 app.use(logger);
@@ -29,8 +34,12 @@ app.use("/register", registerRoutes);
 app.use("/user", verifyJWT, userRoutes);
 app.use("/request", verifyJWT, requestRoutes);
 app.use("/roommate", verifyJWT, roommateRoutes);
+app.use("/avatar", verifyJWT, avatarRoutes);
+
+app.get("/", (req, res) => {
+  res.send("Healthy");
+});
 
 app.use(errorHandler);
 
-const PORT = 8000;
-app.listen(PORT, () => console.log(`This app is listening on port  ${PORT}`));
+module.exports = server;

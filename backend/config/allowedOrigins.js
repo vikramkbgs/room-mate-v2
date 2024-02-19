@@ -1,3 +1,5 @@
-const allowedOrigins = ["http://localhost:3000"];
+require("dotenv").config();
+
+const allowedOrigins = [process.env.CLIENT_URL];
 
 module.exports = allowedOrigins;
