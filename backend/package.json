@@ -1,8 +1,8 @@
 {
-  "name": "node-api",
+  "name": "backend",
   "version": "1.0.0",
-  "description": "node api for mysql DB",
-  "main": "index.js",
+  "description": "",
+  "main": "db.js",
   "license": "MIT",
   "dependencies": {
     "@rama41222/node-logger": "^1.0.1",
