@@ -1,3 +1,3 @@
-const allowedOrigins = ["http://matematching.com"];
+const allowedOrigins = ["http://localhost:3000"];
 
 module.exports = allowedOrigins;
