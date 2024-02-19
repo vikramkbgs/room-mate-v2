@@ -138,6 +138,16 @@ export const RequestList = () => {
                   receivedRequests.map((request, index) => (
                     <div key={index} className="card mb-3">
                       <div className="card-header fs-4">
+                        <img
+                          src={
+                            request.signedUrl
+                              ? request.signedUrl
+                              : "/images/default.jpg"
+                          }
+                          alt="Avatar"
+                          className="rounded-circle me-2"
+                          style={{ width: "32px", height: "32px" }}
+                        />
                         {request.name}&nbsp;
                         <span className="fs-5 d-none d-sm-inline">
                           {request.gender === "male" ? "(He/Him)" : "(She/Her)"}
@@ -153,8 +163,13 @@ export const RequestList = () => {
                         <p className="card-text text-secondary float-end">
                           {request.city} - {request.age}
                         </p>
-                        <p className="card-text col-10">{request.bio}</p>
-                        <div className="btn-group">
+                        <p className="card-text col-10">
+                          <span className="fw-bold">
+                            Request Message:&nbsp;
+                          </span>
+                          {request.message ? request.message : "No message."}
+                        </p>
+                        <div className="btn-group col-12 col-sm-auto">
                           <button
                             type="button"
                             className="btn btn-danger"
@@ -189,6 +204,16 @@ export const RequestList = () => {
                 sentRequests.map((request, index) => (
                   <div key={index} className="card mb-3">
                     <div className="card-header fs-4">
+                      <img
+                        src={
+                          request.signedUrl
+                            ? request.signedUrl
+                            : "/images/default.jpg"
+                        }
+                        alt="Avatar"
+                        className="rounded-circle me-2"
+                        style={{ width: "32px", height: "32px" }}
+                      />
                       {request.name}&nbsp;
                       <span className="fs-5 d-none d-sm-inline">
                         {request.gender === "male" ? "(He/Him)" : "(She/Her)"}
@@ -204,10 +229,15 @@ export const RequestList = () => {
                       <p className="card-text text-secondary float-end">
                         {request.city} - {request.age}
                       </p>
-                      <p className="card-text col-10">{request.bio}</p>
+                      <p className="card-text col-10">
+                        <span className="fw-bold">Request Message:&nbsp;</span>
+                        {request.message
+                          ? request.message
+                          : "No message with this request."}
+                      </p>
                       <button
                         type="button"
-                        className="btn btn-outline-danger"
+                        className="btn btn-outline-danger col-12 col-sm-auto"
                         onClick={() => setRecipient(request.to)}
                       >
                         Delete Request

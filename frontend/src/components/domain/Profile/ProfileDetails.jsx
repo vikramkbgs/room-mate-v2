@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation, useParams } from "react-router-dom";
 import { useAuth, useAxiosPrivate } from "../../../hooks";
 import { RoommateList } from "./RoommateList";
+import { TextAreaField } from "../../common";
 
 export const ProfileDetails = () => {
   const { auth } = useAuth();
@@ -14,6 +15,7 @@ export const ProfileDetails = () => {
   const [roommate, setRoommate] = useState(false);
   const [sentRequest, setSentRequest] = useState(undefined);
   const [receivedRequest, setReceivedRequest] = useState(undefined);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     const getProfile = async () => {
@@ -71,6 +73,7 @@ export const ProfileDetails = () => {
         const response = await axiosPrivate.post(`/request`, {
           to: params.username,
           from: auth.username,
+          message: message,
         });
         return response.data;
       } catch (err) {
@@ -79,7 +82,7 @@ export const ProfileDetails = () => {
       }
     };
     sendRequest();
-    navigate(`/requests`);
+    setSentRequest(true);
   };
 
   if (!profile) {
@@ -102,11 +105,15 @@ export const ProfileDetails = () => {
       <div className="container pt-4 pb-5 mb-4">
         <div className="bg-light rounded p-3 p-md-5 pb-md-4 mb-3">
           <div className="avatar-image float-sm-end mb-2">
-            <img
-              src={profile.photoID ? profile.photoID : "/images/default.jpg"}
-              alt="avatar"
-              className="img-fluid"
-            />
+            <div className="image-wrapper">
+              <img
+                src={
+                  profile.signedUrl ? profile.signedUrl : "/images/default.jpg"
+                }
+                alt="avatar"
+                className="img-fluid"
+              />
+            </div>
           </div>
           <h1 className="display-5 text-center text-sm-start">
             <span className="fw-bold">{profile.name}</span>
@@ -281,15 +288,21 @@ export const ProfileDetails = () => {
               You have a request from this user!
             </button>
           ) : (
-            <button
-              type="button"
-              className={
-                roommate ? "d-none" : "btn btn-primary btn-lg col-12 mt-3"
-              }
-              onClick={handleSendRequest}
-            >
-              Send Roommate Request
-            </button>
+            <div className={roommate ? "d-none" : ""}>
+              <TextAreaField
+                label="Send a message with your request!"
+                value={message}
+                setValue={(message) => setMessage(message)}
+                rowNum={3}
+              />
+              <button
+                type="button"
+                className="btn btn-primary btn-lg col-12"
+                onClick={handleSendRequest}
+              >
+                Send Roommate Request
+              </button>
+            </div>
           )}
         </div>
         <RoommateList username={params.username ? params.username : false} />
