@@ -1,4 +1,4 @@
-#### This is a full-stack web application that allows users to find new roommates tailored to their preferences. [Click Here](http://51.20.185.60:3000/) to view the demo.
+#### This is a full-stack web application that allows users to find new roommates tailored to their preferences.
 
 <hr/>
 
